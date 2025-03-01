@@ -1,10 +1,11 @@
-import Image from "next/image";
+import Categories from "./Categories";
+
+
 
 export default function Home() {
   return (
-    <main className="">
-      djago asu
-      <h2 className="text-airbnb text-3xl">django and next rule</h2>
+    <main className="max-w-[1500px] mx-auto px-6">
+      <Categories/>
 
     </main>
   );
