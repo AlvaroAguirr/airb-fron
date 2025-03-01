@@ -8,7 +8,9 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'airbnb':"#ff385c"
+        'airbnb':"#ff385c",
+        'airbnb-dark':'#d50027'
+      
       }
     },
   },
