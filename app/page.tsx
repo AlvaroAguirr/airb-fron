@@ -1,4 +1,4 @@
-import Categories from "./Categories";
+import Categories from "./components/Categories";
 import PropertyList from "./components/properties/PropertyList";
 
 

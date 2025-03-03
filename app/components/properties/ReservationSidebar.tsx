@@ -12,7 +12,6 @@ const ReservationSidebar =() => {
                     <option >3</option>
                     <option >4</option>
                 </select>
-
         </div>
 
         <div className="w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnb-dark rounded-xl">Book </div>
