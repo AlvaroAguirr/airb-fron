@@ -1,7 +1,12 @@
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar";
 import Image from "next/image";
 
-const PropertyDetailPage = () => {
+
+import apiService from "@/app/services/apiService";
+
+const PropertyDetailPage =  async ({params}:{params:{id:string}}) => {
+    const property= await apiService.get(`/api/properties/${params.id}`)
+    console.log({params})
     return (
 
 <main className="max-w-[1500px] mx-auto px-6 pb-7">
@@ -16,25 +21,28 @@ const PropertyDetailPage = () => {
 
     <div className=" grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className=" py-6 pr-6 col-span-3">
-             <h1 className="mb-4 text-4xl" >prorty name</h1>
+             <h1 className="mb-4 text-4xl" >{property.title}</h1>
         
             <span className="mb-6 block text-lg text-gray-600"> 
-            4 guest - 2 bedrooms - 1 bathroom
+            {property.guest} guest - {property.bedrooms} bedrooms - {property.bathrooms} bathroom
              </span>
 
              <hr />
 
              <div className=" py-6 flex items-center space-x-4">
-                <Image 
-                src="/perfil1.jpg"
-                alt="perfil"
-                width={150}
-                height={150}
-                className="rounded-full"
-               />
+             {property.landlord.avatar_url && (
+
+                 <Image 
+                 src={property.landlord.avatar_url}
+                 alt="perfil"
+                 width={150}
+                 height={150}
+                 className="rounded-full"
+                 />
+                )}  
 
                 <p> <strong>
-                    Pousmouche
+                {property.landlord.name}
                      </strong> is your host</p>
 
              </div>
@@ -42,27 +50,13 @@ const PropertyDetailPage = () => {
 
             <p className="mt-6 text-lg"> 
                 
-Vosmet vetat res coelica
-Iam premet letum vastum te
-Vae gnari sunt suimet estis vestris quis in oculis
-ごやのすゑなぞながされ
-Sapientes feroces vetitum per currunt pelliciuntur in nefas
-Tarda leti et necessitas semota
-Mors necessitudinis corripiet gradum
-Iugis solum ipsius nihil debet
-Credas in nullum qua sunt edicta inutile cave vide qua sunt edicta inutile
-Dominatus
-Dominatus
-Dominatus
-ごやのすゑなぞながされ
-Vae eis cui simulacrum conlaudent in solio inanis
-Mirent augeant fixere sapientes conlaudent
-Necessitas semota et necessitudinis corripiet gradum
-Nunquam genitus desiderem
+            {property.description}
             </p>
         </div>
 
-        <ReservationSidebar></ReservationSidebar>
+        <ReservationSidebar
+        property={property}
+        ></ReservationSidebar>
 
     </div>
 
