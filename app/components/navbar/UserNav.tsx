@@ -13,14 +13,16 @@ interface UserNavProps {
     userId?: string | null
 }
 
-const UserNav:React.FC<UserNavProps> = (
+const UserNav:React.FC<UserNavProps> = ({
+
     userId
+}
 ) => {
 
     const loginModal=useLoginModal()
     const SignupModal=useSignupModal()
     const [isOpen, setIsOpen] = useState (false)
-
+console.log('userid',userId)
     return (
         <div className="p-2 relative  inline-block border rounded-full">
             <button 
