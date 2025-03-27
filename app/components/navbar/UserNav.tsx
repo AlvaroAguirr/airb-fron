@@ -52,6 +52,14 @@ console.log('userid',userId)
                         router.push(`/myproperties`)
                     }}
                     ></MenuLink>
+
+                    <MenuLink
+                    label= 'my Reservations'
+                    onClick={()=>{
+                        setIsOpen(false)
+                        router.push(`/myreservations`)
+                    }}
+                    ></MenuLink>
                     <LogoutButton/>
                     </>
 
