@@ -1,6 +1,8 @@
-import Image from "next/image"
+
+import { getUserId } from "../lib/acctions"
 import PropertyList from "../components/properties/PropertyList"
-const MyPropertiesPage = () => {
+const MyPropertiesPage =async () => {
+    const userId= await getUserId()
     return (
 
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
@@ -10,7 +12,9 @@ const MyPropertiesPage = () => {
 
     <div className=" grid grid-cols-1 md:grid-cols-3 gap-6">
 
-<PropertyList/>
+<PropertyList
+    landlord_id={userId}
+/>
 
 </div>
 
