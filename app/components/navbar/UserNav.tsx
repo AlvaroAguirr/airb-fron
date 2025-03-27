@@ -44,15 +44,22 @@ console.log('userid',userId)
             {isOpen && (
                 <div className="w-[200px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
                   {userId? (
-                    <>
+                      <>
+                    <MenuLink
+                    label= 'inbox'
+                    onClick={()=>{
+                        setIsOpen(false)
+                        router.push(`/inbox`)
+                    }}
+                    />
                     <MenuLink
                     label= 'my Properties'
                     onClick={()=>{
                         setIsOpen(false)
                         router.push(`/myproperties`)
                     }}
-                    />
 
+                    />
                     <MenuLink
                     label= 'my Reservations'
                     onClick={()=>{
