@@ -51,7 +51,7 @@ console.log('userid',userId)
                         setIsOpen(false)
                         router.push(`/myproperties`)
                     }}
-                    ></MenuLink>
+                    />
 
                     <MenuLink
                     label= 'my Reservations'
@@ -59,7 +59,17 @@ console.log('userid',userId)
                         setIsOpen(false)
                         router.push(`/myreservations`)
                     }}
-                    ></MenuLink>
+                    />
+
+                    <MenuLink
+                    label= 'my favorites'
+                    onClick={()=>{
+                        setIsOpen(false)
+                        router.push(`/myfavorites`)
+                    }}
+                    />
+
+
                     <LogoutButton/>
                     </>
 
