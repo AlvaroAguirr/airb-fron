@@ -9,35 +9,61 @@ export type PropertyType= {
     title:string
     price_per_night:number
     image_url:string
+    is_favorite: boolean;
 }
 
 interface PropertyListProps{
-    landlord_id?: string|null
+    landlord_id?: string | null
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({
     landlord_id
 }) => {
-    let url= '/api/properties/'
+    const [properties, setProperties] = useState<PropertyType[]>([]);
+    
+    const markFavorite=(id:string, is_favorite:boolean)=> {
+        const tmpProperties = properties.map((property : PropertyType)=>{
+            if(property.id==id){
+                property.is_favorite=is_favorite
 
+                if(is_favorite){
+                    console.log('añadido a la lista de fav')
+                } else{
+                    console.log('quidado de alli')
+                }
+
+            }
+
+            return property
+        })
+
+        setProperties(tmpProperties)
+    }
+
+    const getProperties= async () =>{
+
+    let url= '/api/properties/';
 
     if(landlord_id){
         url+=`?landlord_id=${landlord_id}`
     }
     
-    const [properties, setProperties] = useState<PropertyType[]>([]);
+        const tmpProperties= await apiService.get(url)
 
+        setProperties(tmpProperties.data.map((property:PropertyType)=>{
+            if(tmpProperties.favorites.includes(property.id)){
+                property.is_favorite= true
 
-    const getProperties= async () =>{
+            } else{
+                property.is_favorite = false
+            }
 
-        const tmbProperties= await apiService.get(url)
-
-        setProperties(tmbProperties.data)
+            return property
+        }))
     };
 
 
     useEffect(()=>{
-
         getProperties()
     },[])
 
@@ -45,17 +71,15 @@ const PropertyList: React.FC<PropertyListProps> = ({
         <>
         {properties.map((property)=>{
             return(
-
                 <PropertyListItem
                 key={property.id}
                 property={property}
+                markFavorite={(is_favorite:any)=> markFavorite(property.id, is_favorite)}
                 />
             )
 
         })}
-          
         </>
-
     )
 }
 

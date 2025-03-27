@@ -2,19 +2,23 @@ import Image from "next/image";
 
 import { PropertyType } from './PropertyList';
 import { useRouter } from "next/navigation";
+import FavoriteButton from "../FavoriteButton";
 
 interface Propertyprops {
-    property:PropertyType
+    property:PropertyType,
+    markFavorite?: (is_favorite:boolean) => void
 
 }
 
 const PropertyListItem: React.FC<Propertyprops> = ({
-property
+property,
+markFavorite
+
 }) => {
     const router = useRouter()
     return ( 
         <div className="cursor-pointer"
-        onClick={() => router.push(`/properties/${property.id}`)}>
+        onClick={() => router.push(`/properties/${property.id}/`)}>
             <div className="relative overflow-hidden aspect-square rounded-xl">
             <Image
             fill 
@@ -23,6 +27,14 @@ property
             className="hover:scale-110 object-cover transition h-full w-full"
             alt="beach house"
             />
+
+            {markFavorite &&(
+        <FavoriteButton
+        id={property.id}
+        is_favorite={property.is_favorite}
+        markFavorite={(is_favorite)=> markFavorite(is_favorite)}></FavoriteButton>
+
+            )}
             </div>
 
             <div className="mt-2">   
