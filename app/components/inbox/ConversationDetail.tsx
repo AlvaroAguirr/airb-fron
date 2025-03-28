@@ -12,6 +12,7 @@ interface ConversationDetailProps {
     conversation:ConversationType;
     userId: string
     token:string;
+    messages:MessageType[]
 
 }
 
@@ -19,7 +20,8 @@ interface ConversationDetailProps {
 const ConversationDetail: React.FC<ConversationDetailProps> = ({
     conversation,
     userId,
-    token
+    token,
+    messages
 }) => {
     const messagesDiv=useRef(null);
     const [newMessage, setNewMessage]= useState('');
@@ -34,6 +36,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     },
 )
 
+
 useEffect(()=>{
     console.log('estado de coneccion cambiado ', readyState);
 }, [readyState])
@@ -46,7 +49,7 @@ if(lastJsonMessage && typeof lastJsonMessage ==='object' && 'name' in lastJsonMe
     name: lastJsonMessage.name as string,
     body: lastJsonMessage.body as string,
     sent_to: otherUser as UserType,
-    created_by:myUser as UserType,
+    create_by:myUser as UserType,
     conversationId: conversation.id
 
    } 
@@ -62,7 +65,7 @@ if(lastJsonMessage && typeof lastJsonMessage ==='object' && 'name' in lastJsonMe
 event:'chat_message',
 data:{
     body:newMessage,
-    name: 'alvaro' ,// myUser?.name,
+    name: myUser?.name,
     sent_to_id:otherUser?.id,
     conversation_id:conversation.id
 }
@@ -83,7 +86,8 @@ data:{
         }
     }
 
-
+    
+    
     return( 
 
             <>
@@ -92,11 +96,23 @@ data:{
         className="max-h[400px] overflow-auto flex  flex-col space-y-4"
         > 
            
-        
+          
+            {messages.map((message, index)=> (
+                    <div
+                    key={index}
+                    className={`w-[80%] py-4 px-6 rounded-xl ${message.create_by.name=== myUser?.name ? 'ml-[20%} bg-blue-200': 'bg-gray-200'}`}
+                    >
+                    <p className="font-bold text-gray-500">{message.create_by.name} </p>
+                         <p>{message.body}</p>
+
+                    </div>
+                ))}
+            </div>
+
             {realtimeMessages.map((message, index)=> (
                     <div
                     key={index}
-                    className={`w-[80%]py-4 px-6 rounded-xl ${message.name=== myUser?.name ? 'ml-[20%} bg-blue-200': 'bg-gray-200'}`}
+                    className={`w-[80%] py-4 px-6 rounded-xl ${message.name== myUser?.name ? 'ml-[20%} bg-blue-200': 'bg-gray-200'}`}
                     >
                         <p className="font-bold text-gray-500">
                             {message.name} 
@@ -105,7 +121,6 @@ data:{
 
                     </div>
                 ))}
-            </div>
 
             <div className="mt-4 py-4 px-6 flex border border-gray-300 space-x-3 rounded-xl">
         <input type="text"
