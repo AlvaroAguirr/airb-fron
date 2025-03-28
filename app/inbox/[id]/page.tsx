@@ -11,7 +11,7 @@ name:string
 body:string
 conversationId: string;
 sent_to:UserType;
-created_be:UserType
+created_by:UserType
 
 }
 const ConversationPage  =async ({params}:{params:{id:string}}) => {
