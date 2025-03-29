@@ -2,6 +2,7 @@
 
 import apiService from "@/app/services/apiService";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import PropertyListItem from "./PropertyListItem";
 
@@ -24,8 +25,9 @@ const PropertyList: React.FC<PropertyListProps> = ({
     landlord_id,
     favorites
 }) => {
+
+    const params=useSearchParams()
     const searchModal=useSearchModal()
-    console.log('qqwer',searchModal.query)
     const country = searchModal.query.country;
     const numGuests= searchModal.query.guests
     const numBathrooms= searchModal.query.bathrooms
@@ -113,7 +115,7 @@ const PropertyList: React.FC<PropertyListProps> = ({
 
     useEffect(()=>{
         getProperties()
-    },[category,searchModal.query])
+    },[category,searchModal.query, params])
 
     return ( 
         <>
